@@ -1,15 +1,11 @@
 module DNA (toRNA) where
 
-rna :: Char -> Char
-rna 'C' = 'G'
-rna 'G' = 'C'
-rna 'T' = 'A'
-rna 'A' = 'U'
-rna _ = '_'
-
-
 toRNA :: String -> Maybe String
-toRNA xs = result
+toRNA = mapM rna
     where 
-        translation = foldr (\x acc -> rna x : acc) "" xs
-        result = if '_' `notElem` translation then Just translation else Nothing
+        rna :: Char -> Maybe Char
+        rna 'C' = Just 'G'
+        rna 'G' = Just 'C'
+        rna 'T' = Just 'A'
+        rna 'A' = Just 'U'
+        rna _ = Nothing
