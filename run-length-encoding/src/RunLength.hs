@@ -12,9 +12,8 @@ decode xs = replicate nb ch ++ (decode . drop 1 . snd) ss
 encode :: String -> String
 encode "" = ""
 encode xs = dispCount ++ char : encode ys
-    where ss = span (\x -> x == head xs) xs
-          ys = snd ss
-          count = (length . fst) ss
+    where (same, ys) = span (== char) xs
+          count = length same
           dispCount = if count == 1 then "" else show count
           char = head xs
 
