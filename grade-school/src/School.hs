@@ -32,11 +32,14 @@ grade gradeNum = names. getFromGrade . getStudents
         names = foldl (\acc (Student g n) -> n:acc) []
 
 sorted :: School -> [(Int, [String])]
-sorted = map addName . groupBy (\x y -> getGrade x == getGrade y) . sort . getStudents
+sorted = map addName . groupBy (\x y -> getGrade x == getGrade y) . sortBy weird_sort . getStudents
+    where -- Sort by grade OR by reversed name
+        weird_sort (Student g n) (Student g2 n2)
+            | g == g2 = n2 `compare` n
+            | otherwise = g `compare` g2
 
 addName :: [Student] -> (Grade, [Name])
-addName (Student g n:students) = sortNames unsorted
+addName (Student g n:students) = unsorted
     where
         appendName (g, xs) (Student _ a) = (g, a:xs)
         unsorted = foldl appendName (g, [n]) students
-        sortNames (g, names) = (g, reverse names)
