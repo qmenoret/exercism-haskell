@@ -27,10 +27,11 @@ mkRobot :: Bearing -> Position -> Robot
 mkRobot = Robot
 
 simulate :: Robot -> String -> Robot
-simulate r "" = r
-simulate r ('A':xs) = simulate (advance r) xs
-simulate (Robot b p) ('R':xs) = simulate (Robot (turnRight b) p) xs
-simulate (Robot b p) ('L':xs) = simulate (Robot (turnLeft b) p) xs
+simulate = foldl move
+    where
+        move r 'A' = advance r
+        move (Robot b p) 'R' = Robot (turnRight b) p
+        move (Robot b p) 'L' = Robot (turnLeft b) p
 
 advance :: Robot -> Robot
 advance (Robot North (x,y)) = Robot North (x,y+1)
