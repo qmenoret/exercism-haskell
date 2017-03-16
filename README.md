@@ -1,3 +1,3 @@
 # exercism-haskell
 
-All exercises resolved here are from [exercism.io](http://http://exercism.io/)
+All exercises resolved here are from [exercism.io](http://exercism.io/)
