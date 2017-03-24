@@ -1,0 +1,31 @@
+module Meetup (Weekday(..), Schedule(..), meetupDay) where
+
+import Data.Time.Calendar (Day, fromGregorian)
+
+data Weekday = Monday
+             | Tuesday
+             | Wednesday
+             | Thursday
+             | Friday
+             | Saturday
+             | Sunday
+
+data Schedule = First
+              | Second
+              | Third
+              | Fourth
+              | Last
+              | Teenth
+
+incWeek :: Schedule -> Int
+incWeek First = 0
+incWeek Second = 7
+incWeek Third = 14
+incWeek Fourth = 21
+incWeek Last = 28
+incWeek Teenth = 0
+
+
+meetupDay :: Schedule -> Weekday -> Integer -> Int -> Day
+-- meetupDay schedule weekday year month = error "You need to implement this function."
+meetupDay sc wd year month = fromGregorian year month 1
