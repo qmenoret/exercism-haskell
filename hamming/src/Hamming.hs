@@ -3,9 +3,8 @@ module Hamming (distance) where
 import Data.Maybe
 
 distance :: String -> String -> Maybe Integer
-distance xs ys | length xs /= length ys = Nothing
-distance a b = (Just . count a) b
-    where
-        count "" "" = 0
-        count (x:xs) (y:ys) = (diff x y +) $ count xs ys
-        diff c d = if c == d then 0 else 1
+distance "" "" = Just 0
+distance (x:xs) (y:ys) 
+    | x == y    = distance xs ys
+    | otherwise = (1+) <$> distance xs ys
+distance _ _ = Nothing
