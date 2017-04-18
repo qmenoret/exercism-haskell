@@ -3,11 +3,12 @@ module RunLength (decode, encode) where
 import Data.Char
 
 decode :: String -> String
+
 decode "" = ""
-decode xs = replicate nb ch ++ (decode . drop 1 . snd) ss
-    where ss = span isDigit xs
-          nb = max 1 $ (read . ('0':) . fst) ss
-          ch = (head . snd) ss
+decode xs = replicate nb ch ++ (decode . drop 1) s
+    where (f,s) = span isDigit xs
+          nb = max 1 $ (read . ('0':)) f
+          ch = head s
 
 encode :: String -> String
 encode "" = ""
