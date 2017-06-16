@@ -5,6 +5,7 @@ dependencies:
   - base
   - containers
   - text
+  - stm
 
 library:
   exposed-modules: Frequency

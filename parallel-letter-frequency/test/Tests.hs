@@ -48,31 +48,38 @@ specs = describe "parallel-letter-frequency" $ do
 
     describe "frequency" $ do
 
-      it "no texts mean no letters" $
-        frequency 1 [] `shouldBe` empty
+      it "no texts mean no letters" $ do
+        f <- frequency 1 []
+        f `shouldBe` empty
 
-      it "one letter" $
-        frequency 1 ["a"] `shouldBe` singleton 'a' 1
+      it "one letter" $ do
+        f <- frequency 1 ["a"] 
+        f `shouldBe` singleton 'a' 1
 
-      it "case insensitivity" $
-        frequency 1 ["aA"] `shouldBe` singleton 'a' 2
+      it "case insensitivity" $ do
+        f <- frequency 1 ["aA"]
+        f `shouldBe` singleton 'a' 2
 
-      it "many empty texts still mean no letters" $
-        frequency 1 (replicate 10000 "  ") `shouldBe` empty
+      it "many empty texts still mean no letters" $ do
+        f <- frequency 1 (replicate 10000 "  ")
+        f`shouldBe` empty
 
-      it "many times the same text gives a predictable result" $
-        frequency 1 (replicate 1000 "abc") `shouldBe` fromList [ ('a', 1000)
-                                                               , ('b', 1000)
-                                                               , ('c', 1000) ]
+      it "many times the same text gives a predictable result" $ do
+        f <- frequency 1 (replicate 1000 "abc")
+        f `shouldBe` fromList [ ('a', 1000)
+                              , ('b', 1000)
+                              , ('c', 1000) ]
 
-      it "punctuation doesn't count" $
-        lookup ',' (frequency 1 [odeAnDieFreude]) `shouldBe` Nothing
+      it "punctuation doesn't count" $ do
+        f <- frequency 1 [odeAnDieFreude]
+        lookup ',' f `shouldBe` Nothing
 
-      it "numbers don't count" $
-        lookup '1' (frequency 1 ["Testing, 1, 2, 3"]) `shouldBe` Nothing
+      it "numbers don't count" $ do
+        f <- frequency 1 ["Testing, 1, 2, 3"]
+        lookup '1' f `shouldBe` Nothing
 
       let testAllAnthems n = do
-            let frequencies = frequency n anthems
+            frequencies <- frequency n anthems
             lookup 'a' frequencies `shouldBe` Just 49
             lookup 't' frequencies `shouldBe` Just 56
             lookup 'ü' frequencies `shouldBe` Just  2
