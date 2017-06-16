@@ -30,9 +30,8 @@ mapFromTQueue q = foldl r (return empty)
     where
         r :: IO (Map Char Int) -> a -> IO (Map Char Int)
         r f _ = do 
-            a <- f
             b <- atomically $ readTQueue q
-            return $ unionWith (+) a b
+            unionWith (+) b <$> f
 
 frequencyOne :: T.Text -> Map Char Int
 frequencyOne = T.foldl compute empty
